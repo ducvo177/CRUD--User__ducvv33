@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+    />
+    <title>CRUD Master Dev</title>
+  </head>
+  <body>
+    <form   class="container needs-validation">
+      <div
+        class="form--header w-100 bg-success p-4 mt-4 border rounded-top border-bottom-0"
+      >
+        <span class="font-weight-bold text-white">ĐĂNG KÝ TÀI KHOẢN USER</span>
+      </div>
+      <div class="p-4 border rounded-bottom border-top-0" id="form">
+        <div class="form-group">
+          <label for="InputUsername">User Name:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="usernameInput"
+            name="username"
+            placeholder="Enter your username"
+            required
+          />
+          <div class="invalid-feedback">
+            Please choose a username.
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="InputFullname"> FullName:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="fullnameInput"
+            name="fullname"
+            placeholder="Enter your fullname"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="InputEmail">Email address</label>
+          <input
+            type="email"
+            class="form-control"
+            id="emailInput"
+            name="email"
+            placeholder="VD:abc@gmail.com"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="InputBirthday">Birthday:</label>
+          <input
+            type="date"
+            class="form-control"
+            name="birthday"
+            id="birthdayInput"
+            required
+          />
+        </div>
+        <div class="btn-area d-flex">
+          <button type="submit"  class="btn btn-success m-1 btn--save" id="save">Save</button>
+          <button class="btn btn-warning m-1 btn--reset" id="reset"> Reset </button>
+        </div>
+      </div>
+
+      <table class="table table-bordered mt-3">
+        <thead class="bg-success text-white">
+          <tr>
+            <th scope="col">No</th>
+            <th scope="col">Username</th>
+            <th scope="col">Full Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Birthday</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody id="table" class=""></tbody>
+      </table>
+    </form>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="./assets/index.js"></script>
+  </body>
+</html>
