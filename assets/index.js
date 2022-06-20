@@ -8,7 +8,6 @@ const emailInput = $("#emailInput"),
   save = $("#save"),
   reset = $("#reset"),
   tableContent = $("#table");
-
 const urlApi = "http://localhost:3000/user";
 
 const userToObject = () => {
@@ -30,10 +29,6 @@ const clearInput = () => {
     element.value = "";
   });
 };
-async function getJSONAsync() {
-  let json = await axios.get();
-  return json;
-}
 const App = () => {
   //Render Table
   axios.get(urlApi).then((resp) => {
@@ -55,19 +50,14 @@ const App = () => {
     //Handle edit and delete buttons
     let editBtns = $$(".btn--edit"),
       deleteBtns = $$(".btn--delete");
-
-    for (let i = 0; i < editBtns.length; i++) {
-      editBtns[i].onclick = function () {
-        axios.patch(
-          urlApi + `/${editBtns[i].getAttribute("index")}`,
-          userToObject()
-        );
+    for (const btn of editBtns) {
+      btn.onclick = function () {
+        axios.patch(urlApi + `/${btn.getAttribute("index")}`, userToObject());
       };
     }
-
-    for (let i = 0; i < deleteBtns.length; i++) {
-      deleteBtns[i].onclick = function () {
-        axios.delete(urlApi + `/${deleteBtns[i].getAttribute("index")}`);
+    for (const btn of deleteBtns) {
+      btn.onclick = function () {
+        axios.delete(urlApi + `/${btn.getAttribute("index")}`);
       };
     }
   });
@@ -75,7 +65,6 @@ const App = () => {
 const handleSave = () => {
   postUser();
 };
-
 App();
 save.addEventListener("click", handleSave);
 reset.addEventListener("click", clearInput);
