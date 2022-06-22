@@ -11,7 +11,7 @@
     <title>Duc Lang Tu</title>
   </head>
   <body>
-    <form   class="container needs-validation">
+    <form  class="container needs-validation">
       <div
         class="form--header w-100 bg-success p-4 mt-4 border rounded-top border-bottom-0"
       >
@@ -29,7 +29,7 @@
             required
           />
           <div class="invalid-feedback">
-            Please choose a username.
+            Please enter username.
           </div>
         </div>
         <div class="form-group">
@@ -43,6 +43,9 @@
             required
           />
         </div>
+        <div class="invalid-feedback">
+          Please enter fullname.
+        </div>
         <div class="form-group">
           <label for="InputEmail">Email address</label>
           <input
@@ -54,6 +57,9 @@
             required
           />
         </div>
+        <div class="invalid-feedback">
+          Please enter email.
+        </div>
         <div class="form-group">
           <label for="InputBirthday">Birthday:</label>
           <input
@@ -64,8 +70,11 @@
             required
           />
         </div>
+        <div class="invalid-feedback">
+          Please enter your birthday.
+        </div>
         <div class="btn-area d-flex">
-          <button type="submit"  class="btn btn-success m-1 btn--save" id="save">Save</button>
+          <button class="btn btn-success m-1 btn--save" id="save">Save</button>
           <button class="btn btn-warning m-1 btn--reset" id="reset"> Reset </button>
         </div>
       </div>

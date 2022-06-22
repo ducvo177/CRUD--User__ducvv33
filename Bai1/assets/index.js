@@ -10,8 +10,8 @@ const emailInput = $("#emailInput"),
   tableContent = $("#table");
 const urlApi = "http://localhost:3000/user";
 
-const userToObject = () => {
-  var user = {
+const inputToObject = () => {
+  let user = {
     username: userInput.value,
     fullname: fullnameInput.value,
     email: emailInput.value,
@@ -19,9 +19,18 @@ const userToObject = () => {
   };
   return user;
 };
-
+const tableToObject = (td) => {
+  let user = {
+    username: td[0].innerHTML,
+    fullname: td[1].innerHTML,
+    email: td[2].innerHTML,
+    birthday: td[3].innerHTML,
+  };
+  return user;
+};
 const postUser = () => {
-  axios.post(urlApi, userToObject());
+  axios.post(urlApi, inputToObject());
+  
 };
 
 const clearInput = () => {
@@ -29,18 +38,48 @@ const clearInput = () => {
     element.value = "";
   });
 };
+const validateEmpty=()=> {
+  let check=0;
+  allInput.forEach((element) => {
+    if(element.value === ""){
+      element.classList.toggle("is-invalid")
+     check+=1;
+    }
+  })
+  return check;
+}
+const validateEmail=(email)=> {
+  let check=0;
+  if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email))
+  {
+    console.log("good email")
+  }else{
+    check+=1;
+  }
+   
+   return check;
+  
+}
+const validateForm=()=> {
+  if(validateEmpty()==0 && validateEmail(emailInput.value)==0){
+    postUser()
+    console.log("dcm")
+  }
+
+
+}
 const App = () => {
   //Render Table
   axios.get(urlApi).then((resp) => {
     tableContent.innerHTML = "";
     resp.data.forEach((element) => {
       html = `
-      <tr>
+      <tr id="user--tr">
         <th scope="row">${element.id}</th>
-        <td>${element.username}</td>
-        <td>${element.fullname}</td>
-        <td>${element.email}</td>
-        <td>${element.birthday}</td>
+        <td index="1">${element.username}</td>
+        <td index="2">${element.fullname}</td>
+        <td index="3">${element.email}</td>
+        <td index="4">${element.birthday}</td>
         <td ><button class="btn btn-primary m-1 btn--edit"  index="${element.id}">Edit</button></td>    
         <td ><button class="btn btn-danger m-1 btn--delete"  index="${element.id}">Delete</button> </td>
       </tr>
@@ -50,9 +89,17 @@ const App = () => {
     //Handle edit and delete buttons
     let editBtns = $$(".btn--edit"),
       deleteBtns = $$(".btn--delete");
+    tr = $("#user--tr");
+    td = tr.getElementsByTagName("td");
+    for (let i = 0; i < td.length; i++) {
+      td[i].setAttribute("contenteditable", "true");
+    }
     for (const btn of editBtns) {
       btn.onclick = function () {
-        axios.patch(urlApi + `/${btn.getAttribute("index")}`, userToObject());
+        axios.patch(
+          urlApi + `/${btn.getAttribute("index")}`,
+          tableToObject(td)
+        );  
       };
     }
     for (const btn of deleteBtns) {
@@ -62,9 +109,6 @@ const App = () => {
     }
   });
 };
-const handleSave = () => {
-  postUser();
-};
-App();
-save.addEventListener("click", handleSave);
+save.addEventListener("click", validateForm);
 reset.addEventListener("click", clearInput);
+App();
